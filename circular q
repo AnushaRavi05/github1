@@ -1,0 +1,100 @@
+#include <iostream>
+using namespace std;
+
+// Constants
+const int MAX_SIZE = 100; // Maximum size of the circular queue
+
+// Global variables
+int queue[MAX_SIZE]; // Array to hold queue elements
+int front = -1;      // Initialize front to -1 (empty queue)
+int rear = -1;       // Initialize rear to -1 (empty queue)
+
+// Function to check if the queue is empty
+bool isEmpty() {
+    return front == -1; // If front is -1, queue is empty
+}
+
+// Function to check if the queue is full
+bool isFull() {
+    return (rear + 1) % MAX_SIZE == front; // Full if next position of rear is front
+}
+
+// Function to enqueue data into the circular queue
+void enqueue(int value) {
+    if (isFull()) {
+        cout << "Queue overflow! Cannot enqueue " << value << endl;
+        return;
+    }
+    if (isEmpty()) {
+        front = rear = 0; // Set front and rear to 0 if queue was empty
+    } else {
+        rear = (rear + 1) % MAX_SIZE; // Circular increment of rear
+    }
+    queue[rear] = value; // Add value to the queue
+    cout << value << " enqueued into the queue." << endl;
+}
+
+// Function to dequeue data from the circular queue
+int dequeue() {
+    if (isEmpty()) {
+        cout << "Queue is empty! Cannot dequeue." << endl;
+        return -1; // Indicate error
+    }
+    int value = queue[front]; // Get the front value
+    if (front == rear) {
+        front = rear = -1; // Reset to empty if the last element is dequeued
+    } else {
+        front = (front + 1) % MAX_SIZE; // Circular increment of front
+    }
+    return value; // Return the dequeued value
+}
+
+// Function to peek at the front element
+int peek() {
+    if (isEmpty()) {
+        cout << "Queue is empty! Cannot peek." << endl;
+        return -1; // Indicate error
+    }
+    return queue[front]; // Return front value
+}
+
+int main() {
+    int choice, value;
+
+    do {
+        cout << "\nCircular Queue Operations Menu:\n";
+        cout << "1. Enqueue\n";
+        cout << "2. Dequeue\n";
+        cout << "3. Peek\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                cout << "Enter value to enqueue: ";
+                cin >> value;
+                enqueue(value);
+                break;
+            case 2:
+                value = dequeue();
+                if (value != -1) {
+                    cout << value << " dequeued from the queue." << endl;
+                }
+                break;
+            case 3:
+                value = peek();
+                if (value != -1) {
+                    cout << "Front element is: " << value << endl;
+                }
+                break;
+            case 4:
+                cout << "Exiting the program." << endl;
+                break;
+            default:
+                cout << "Invalid choice! Please try again." << endl;
+        }
+    } while (choice != 4);
+
+    return 0;
+}
