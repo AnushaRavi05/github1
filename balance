@@ -8,8 +8,12 @@ bool isBalanced(const string& exp) {
     // Stack to store opening brackets
     stack<char> stk;
 
-    // Mapping of closing brackets to opening brackets
-    unordered_map<char, char> matchingBrackets = {{')', '('}, {'}', '{'}, {']', '['}};
+    // Mapping of closing brackets to their corresponding opening brackets
+    unordered_map<char, char> matchingBrackets = {
+        {')', '('},  // ')' should match with '('
+        {'}', '{'},  // '}' should match with '{'
+        {']', '['}   // ']' should match with '['
+    };
 
     // Iterate through each character in the expression
     for (char ch : exp) {
@@ -23,7 +27,7 @@ bool isBalanced(const string& exp) {
             if (stk.empty() || stk.top() != matchingBrackets[ch]) {
                 return false; // Not balanced
             }
-            // Pop the matched opening bracket
+            // Pop the matched opening bracket from the stack
             stk.pop();
         }
     }
