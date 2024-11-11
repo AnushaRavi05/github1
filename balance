@@ -1,0 +1,47 @@
+#include <iostream>
+#include <stack>
+#include <unordered_map>
+
+using namespace std;
+
+bool isBalanced(const string& exp) {
+    // Stack to store opening brackets
+    stack<char> stk;
+
+    // Mapping of closing brackets to opening brackets
+    unordered_map<char, char> matchingBrackets = {{')', '('}, {'}', '{'}, {']', '['}};
+
+    // Iterate through each character in the expression
+    for (char ch : exp) {
+        // If the character is an opening bracket, push it onto the stack
+        if (ch == '(' || ch == '{' || ch == '[') {
+            stk.push(ch);
+        }
+        // If the character is a closing bracket
+        else if (ch == ')' || ch == '}' || ch == ']') {
+            // If the stack is empty or the top of the stack doesn't match
+            if (stk.empty() || stk.top() != matchingBrackets[ch]) {
+                return false; // Not balanced
+            }
+            // Pop the matched opening bracket
+            stk.pop();
+        }
+    }
+
+    // If the stack is empty, the expression is balanced
+    return stk.empty();
+}
+
+int main() {
+    string exp;
+    cout << "Enter an expression to check if it is balanced: ";
+    cin >> exp;
+
+    if (isBalanced(exp)) {
+        cout << "Balanced" << endl;
+    } else {
+        cout << "Not Balanced" << endl;
+    }
+
+    return 0;
+}
