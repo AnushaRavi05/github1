@@ -1,0 +1,122 @@
+#include<iostream>
+using namespace std;
+
+class queues
+      {
+          private:
+                stack<int>stack1;
+                  stack<int>stack2;
+                    public:
+                            void enqueue(int item)
+                                {
+                                    stack1.push(item);
+                                }
+                            void dequeue()
+                                {
+                                    if(stack2.empty())
+                                        {
+                                          while(!stack1.empty())
+                                              {
+                                                  stack2.push(stack1.top());
+                                                    stack1.pop();
+                                                  }
+                                                    if(stack2.empty())
+                                                      {
+                                                            cout<<"empty";
+                                                            return -1;
+                                                        }
+                                                    int front=stack2.top();
+                                                      stack2.pop();
+                                                            return front;
+                                            }}
+                                            void peek()
+                                              {
+                                                  if(stack2.empty())
+                                                      {
+                                                            while(!stack1.empty())
+                                                              {
+                                                                    stack2.push(stack1,top());
+                                                                        stack1.pop();
+                                                                  }
+                                                                    }
+                                                                  if(stack2.empty())
+                                                                    {
+                                                                      cout<<"empty";
+                                                                          retrun -1;
+                                                                    }
+                                                                  return stack2.top();
+                                                                  }
+                                                          bool isempty()
+                                                                {
+                                                                    return stack1.empty() && stack2.empty();
+                                                                  }
+                                                                  int size()
+                                                                {
+                                                                  return stack1.size()+stack2.size();
+                                                                }};
+                                                int main()
+                                                        {queues queue;
+    int choice, value;
+
+    do {
+        
+        cout << "\nQueue Operations using Two Stacks\n";
+        cout << "1. Enqueue\n";
+        cout << "2. Dequeue\n";
+        cout << "3. Peek\n";
+        cout << "4. Check if Queue is Empty\n";
+        cout << "5. Get Queue Size\n";
+        cout << "6. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1:
+                // Enqueue
+                cout << "Enter value to enqueue: ";
+                cin >> value;
+                queue.enqueue(value);
+                cout << "Enqueued " << value << endl;
+                break;
+
+            case 2:
+                // Dequeue
+                value = queue.dequeue();
+                if (value != -1) {
+                    cout << "Dequeued: " << value << endl;
+                }
+                break;
+
+            case 3:
+                // Peek
+                value = queue.peek();
+                if (value != -1) {
+                    cout << "Front element: " << value << endl;
+                }
+                break;
+
+            case 4:
+                // Check if the queue is empty
+                if (queue.isEmpty()) {
+                    cout << "Queue is empty!" << endl;
+                } else {
+                    cout << "Queue is not empty!" << endl;
+                }
+                break;
+
+            case 5:
+                // Get the size of the queue
+                cout << "Queue size: " << queue.size() << endl;
+                break;
+
+            case 6:
+                cout << "Exiting program." << endl;
+                break;
+
+            default:
+                cout << "Invalid choice! Please try again." << endl;
+        }
+    } while (choice != 6);
+
+    return 0;
+}
