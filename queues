@@ -29,7 +29,7 @@ class queues
                                                       stack2.pop();
                                                             return front;
                                             }}
-                                            void peek()
+                                            int peek()
                                               {
                                                   if(stack2.empty())
                                                       {
