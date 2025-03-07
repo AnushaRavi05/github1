@@ -1,0 +1,57 @@
+Given two positive integers left and right, find the two integers num1 and num2 such that:
+
+left <= num1 < num2 <= right .
+Both num1 and num2 are prime numbers.
+num2 - num1 is the minimum amongst all other pairs satisfying the above conditions.
+Return the positive integer array ans = [num1, num2]. If there are multiple pairs satisfying these conditions, return the one with the smallest num1 value. If no such numbers exist, return [-1, -1].
+
+ #include <vector>
+#include <cmath>
+#include <algorithm>
+using namespace std;
+
+class Solution {
+public:
+    
+    bool isPrime(int num) {
+        if (num <= 1) return false;
+        for (int i = 2; i <= sqrt(num); ++i) {
+            if (num % i == 0) return false;
+        }
+        return true;
+    }
+
+  
+    vector<int> findPrimesInRange(int left, int right) {
+        vector<int> primes;
+        for (int num = left; num <= right; ++num) {
+            if (isPrime(num)) {
+                primes.push_back(num);
+            }
+        }
+        return primes;
+    }
+
+    vector<int> closestPrimes(int left, int right) {
+        
+        vector<int> primes = findPrimesInRange(left, right);
+        
+       
+        if (primes.size() < 2) {
+            return {-1, -1};
+        }
+        
+        int minDiff = right - left + 1;
+        vector<int> result = {-1, -1};
+
+        for (int i = 0; i < primes.size() - 1; ++i) {
+            int diff = primes[i + 1] - primes[i];
+            if (diff < minDiff) {
+                minDiff = diff;
+                result = {primes[i], primes[i + 1]};
+            }
+        }
+        
+        return result;
+    }
+};
