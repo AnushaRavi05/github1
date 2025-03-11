@@ -1,18 +1,18 @@
 #include <vector>
 #include <iostream>
-#include <sstream>  // For stringstream
+#include <sstream>  
 using namespace std;
 
 vector<int> parseInts(string str) {
-    stringstream ss(str);  // Create a stringstream from the input string
+    stringstream ss(str);  
     vector<int> integers;
     int num;
-    char ch;  // To handle commas (will discard them)
+    char ch;  
 
-    // Read integers and skip commas
+    
     while (ss >> num) {
-        integers.push_back(num);  // Add the number to the vector
-        ss >> ch;  // Read and discard the comma
+        integers.push_back(num);  
+        ss >> ch;  
     }
 
     return integers;
@@ -20,10 +20,10 @@ vector<int> parseInts(string str) {
 
 int main() {
     string str;
-    cin >> str;  // Read the input string
-    vector<int> integers = parseInts(str);  // Parse the integers from the string
+    cin >> str;  
+    vector<int> integers = parseInts(str); 
 
-    // Output the integers, each on a new line
+    
     for (int i = 0; i < integers.size(); i++) {
         cout << integers[i] << "\n";
     }
@@ -31,9 +31,4 @@ int main() {
     return 0;
 }
 
-Input (stdin)
-23,4,56
-Output
-23
-4
-56
+
