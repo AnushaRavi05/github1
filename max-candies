@@ -1,0 +1,40 @@
+You are given a 0-indexed integer array candies. Each element in the array denotes a pile of candies of size candies[i]. You can divide each pile into any number of sub piles, but you cannot merge two piles together.
+
+You are also given an integer k. You should allocate piles of candies to k children such that each child gets the same number of candies. Each child can be allocated candies from only one pile of candies and some piles of candies may go unused.
+
+Return the maximum number of candies each child can get.
+
+class Solution {
+public:
+    bool isit(vector<int>& candies, long long k, long long part) {
+        long long count = 0;
+        for (int &i : candies) {
+            count = count + (i / part);
+        }
+        return count >= k;
+    }
+
+    long long maximumCandies(vector<int>& candies, long long k) {
+        long long sum = 0;
+        int mini = INT_MAX;
+        for (int &i : candies) {
+            sum += i;
+            mini = min(mini, i);
+        }
+
+        if (sum < k) return 0;
+
+        long long low = 1, high = sum / k, ans = 0;
+        while (low <= high) {
+            long long mid = low + (high - low) / 2;
+            if (isit(candies, k, mid)) {
+                ans = mid;
+                low = mid + 1;
+            } 
+            else {
+                high = mid - 1;
+            }
+        }
+        return ans;
+    }
+};
